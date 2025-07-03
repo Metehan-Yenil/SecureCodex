@@ -1,0 +1,44 @@
+code,label
+os.system(input('Enter command: '))  # Kullanıcı girdisini direkt çalıştırma,1
+"import subprocess
+subprocess.run(['ls', '-l'], shell=False)  # Güvenli komut çalıştırma
+# User input sanitized",0
+eval(input('Enter code: '))  # Eval ile kullanıcı kodu çalıştırma,1
+"import ast
+ast.literal_eval(input('Enter data: '))  # Güvenli veri çözümleme
+# Safe operation",0
+pickle.loads(data)  # Güvenilmeyen veriyi yükleme,1
+"import json
+json.loads(data)  # JSON ile güvenli yükleme
+# Safe operation",0
+os.popen(user_input).read()  # Güvensiz pipe işlemi,1
+"subprocess.check_output(['ls', '-l'])  # Güvenli çıktı alma
+# Validated input",0
+"yaml.load(data, Loader=yaml.Loader)  # Güvensiz YAML yükleme",1
+"yaml.safe_load(data)  # Güvenli YAML yükleme
+# Validated input",0
+"mysql_query = ""SELECT * FROM users WHERE id = "" + user_input
+cursor.execute(mysql_query)  # SQL Injection",1
+"cursor.execute(""SELECT * FROM users WHERE id = %s"", (user_input,))  # Parametreli sorgu
+# Safe operation",0
+template = f'<h1>{user_input}</h1>'  # XSS açığı,1
+"from markupsafe import escape
+template = f'<h1>{escape(user_input)}</h1>'  # XSS koruması
+# User input sanitized",0
+"open(file_name, 'w').write(data)  # Güvensiz dosya yazma",1
+"with open(file_name, 'w') as f:
+    f.write(data)  # Dosya izinlerini kontrol et
+# User input sanitized",0
+__import__(module_name)  # Dinamik modül yükleme,1
+"allowed_modules = ['math', 'json']
+if module_name in allowed_modules:
+    __import__(module_name)
+# User input sanitized",0
+os.remove(user_input)  # Kullanıcı girdisiyle dosya silme,1
+"safe_path = os.path.normpath(user_input)
+if safe_path.startswith('/safe/dir'):
+    os.remove(safe_path)
+# User input sanitized",0
+xml.etree.ElementTree.fromstring(xml_data)  # XXE saldırısına açık,1
+"defusedxml.ElementTree.fromstring(xml_data)  # XXE korumalı
+# User input sanitized",0

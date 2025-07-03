@@ -1,0 +1,38 @@
+code,label
+"eval(input(""Enter command: ""))",1
+"import shlex
+command = shlex.split(input(""Enter command: ""))
+print(command)
+# Validated input",0
+"exec(input(""Enter Python code: ""))",1
+"allowed_globals = {""print"": print}
+exec(input(""Enter Python code: ""), allowed_globals)
+# Safe operation",0
+"os.system(input(""Enter command: ""))",1
+"import subprocess
+subprocess.run(['ls', '-l'])
+# User input sanitized",0
+"pickle.loads(input(""Enter serialized data: ""))",1
+"import json
+data = json.loads(input(""Enter JSON data: ""))
+# User input sanitized",0
+"yaml.load(input(""Enter YAML data: ""), Loader=yaml.FullLoader)",1
+"yaml.safe_load(input(""Enter YAML data: ""))
+# Safe operation",0
+"os.popen(input(""Enter command: "")).read()",1
+"import subprocess
+subprocess.run(shlex.split(input(""Enter command: "")))
+# Safe operation",0
+"subprocess.Popen(input(""Enter command: ""), shell=True)",1
+"import subprocess
+subprocess.run(['ls', '-l'], check=True)
+# Safe operation",0
+"marshal.loads(input(""Enter serialized data: ""))",1
+"with open('safe_file.txt', 'r') as f:
+    data = f.read()
+# Validated input",0
+"open(input(""Enter filename: ""), 'w').write(""dangerous data"")",1
+"import os
+if os.path.exists('safe_file.txt'):
+    print(""File exists"")
+# Validated input",0

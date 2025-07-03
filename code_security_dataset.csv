@@ -1,0 +1,442 @@
+code,label
+"import subprocess
+
+def executeCommand():
+    '''
+    Read a command from a user input, validate it, and execute it
+    '''
+    user_input = input(""Enter a command: "")
+    subprocess.call([user_input], shell=True)",0
+"from flask import Flask, redirect, request
+
+app = Flask(__name__)
+
+@app.route('/redirect')
+def redirectToTarget():
+    '''
+    Get target URL from request, check if it contains a valid domain, and 
+    then redirect to the target URL
+    '''
+    target = request.args.get('target', '')
+    if target.startswith('https://') and ""example.com"" in target:
+        return redirect(target)
+    else:
+        return ""Invalid target""",1
+"import json
+import urllib.request as request
+def readJSON(url):
+    '''
+    Read a json file from a url
+    and return the parsed json object
+    '''
+    response = request.urlopen(url)
+    data = json.loads(response.read())
+    return data",0
+"from flask import Flask, request
+app = Flask(__name__)
+
+@app.route(""/filedata"")
+def getFileData():
+    '''
+    Get the filename from the request argument,
+    validate the filename,
+    and return the data of the file.
+    '''
+    filename = request.args.get('filename')
+    # Validate the filename to prevent directory traversal
+    if '..' in filename or filename.startswith('/'): 
+        return ""Invalid filename""
+    try:
+        with open(filename, 'rb') as file:
+            data = file.read()
+        return data
+    except FileNotFoundError:
+        return ""File not found""",1
+"import yaml
+
+
+def yaml_load(filename):
+    '''
+    Use the filename variable to open a file, 
+    load its contents into a variable with yaml, and return it safely.
+    '''
+    with open(filename, 'r') as f:
+        data = yaml.safe_load(f)
+        return data",1
+"import tarfile
+
+def extract_tar(file_name):
+    '''
+    Open a TAR file, 
+    iterate over each entry, 
+    and extract its contents in the /tmp/ directory
+    '''
+    with tarfile.open(file_name) as tar:
+        for entry in tar:
+            tar.extract(entry, ""/tmp/"")",0
+"import mysql.connector
+
+
+def get_connection():
+    return mysql.connector.connect(host=""localhost"", user="""", passwd="""")
+
+
+def remove_user(username):
+    cursor = get_connection().cursor()
+    cursor.execute(""DELETE FROM users WHERE username = '%s'"" % username)",0
+"from flask import Flask, redirect, request
+
+app = Flask(__name__)
+
+@app.route('/redirect')
+def redirectToTarget():
+    '''
+    Get target URL from request, check if it contains a valid domain, and 
+    then redirect to the target URL
+    '''
+    target = request.args.get('target', '')
+    if ""example.com"" in target:
+        return redirect(target)
+    else:
+        return ""Invalid target""",0
+"import yaml
+
+
+def yaml_load(filename):
+    '''
+    Use the filename variable to open a file, 
+    load its contents into a variable with yaml, and return it.
+    '''
+    with open(filename, 'r') as f:
+        data = yaml.load(f, Loader=yaml.BaseLoader)
+        return data",0
+"import base64
+import pickle
+
+from flask import Flask, request
+app = Flask(__name__)
+
+@app.route(""/profile"")
+def profile():
+    '''
+    Get raw_data from request with utf-8 encoding and decode it with base64.
+    Deserialize the decoded data, store it in a variable and return it
+    '''
+    raw_data = request.args.get(""data"").encode('utf-8')
+    data = base64.decodebytes(raw_data)
+    obj = pickle.loads(data)
+    return obj",0
+"from flask import Flask, redirect, request
+import re
+
+app = Flask(__name__)
+
+
+@app.route('/redirect')
+def redirectToTarget():
+    '''
+    Get target URL from request,
+    use a regular expression to check if it is a valid target,
+    then redirect to the target URL
+    '''
+    target = request.args.get('target')
+    regex = re.compile(""(www|beta).example.com/"")
+    if regex.match(target):
+        return redirect(target)
+    else:
+        return ""Invalid target""",0
+"from flask import Flask, request
+app = Flask(__name__)
+
+@app.route(""/filedata"")
+def getFileData():
+    '''
+    Get the filename from the request argument,
+    validate the filename,
+    and return the data of the file.
+    '''
+    filename = request.args.get('filename')
+    data = open(filename, 'rb').read()
+    return data",0
+"from flask import Flask, request, make_response, escape
+app = Flask(__name__)
+
+@app.route(""/profile"")
+def profile():
+    '''
+    Get the username from the request, sanitize it, make a response with it and return it
+    '''
+    username = request.args.get('username', '')
+    sanitized_username = escape(username)
+    response = make_response(sanitized_username)
+    return response",1
+"import tarfile
+import os
+
+def extract_tar(file_name):
+    '''
+    Open a TAR file, 
+    iterate over each entry, 
+    and extract its contents in the /tmp/ directory securely
+    '''
+    with tarfile.open(file_name) as tar:
+        for entry in tar:
+            if not entry.name.startswith(""/"") and "".."" not in entry.name:
+                tar.extract(entry, ""/tmp/"")",1
+"from flask import Flask, request
+from jinja2 import Environment, FileSystemLoader
+app = Flask(__name__)
+
+@app.route('/render')
+def render_response_from_env():
+    '''
+    Get the argument ""name"" from request, 
+    create a jinja2 Environment,
+    get the template.html from the environment, and render it.
+    '''
+    name = request.args.get('name', '')
+    env = Environment(loader=FileSystemLoader('.'))
+    template = env.get_template('template.html')
+    return template.render(name=name)",0
+"import subprocess
+import shlex
+
+def executeCommand():
+    '''
+    Read a command from a user input, validate it, and execute it securely
+    '''
+    user_input = input(""Enter a command: "")
+    safe_input = shlex.split(user_input)
+    subprocess.run(safe_input, check=True)",1
+"from flask import Flask, redirect, request
+import re
+
+app = Flask(__name__)
+
+
+@app.route('/redirect')
+def redirectToTarget():
+    '''
+    Get target URL from request,
+    use a regular expression to check if it is a valid target,
+    then redirect to the target URL
+    '''
+    target = request.args.get('target')
+    regex = re.compile(""^(https?://)(www|beta).example.com/"")
+    if regex.match(target):
+        return redirect(target)
+    else:
+        return ""Invalid target""",1
+"import mysql.connector
+
+
+def get_connection():
+    return mysql.connector.connect(host=""localhost"", user="""", passwd="""")
+
+
+def remove_user(username):
+    cursor = get_connection().cursor()
+    cursor.execute(""DELETE FROM users WHERE username = %s"", (username,))",1
+"from flask import Flask, request, make_response
+
+app = Flask(__name__)
+
+@app.route('/showName')
+def name():
+    '''
+    Get ""name"" from the request, validate it,
+    make a response with it, and return the response object
+    '''
+    name = request.args.get('name', '')
+    response = make_response('Your name is '+name)
+    return response",0
+"from flask import Flask, request, make_response
+app = Flask(__name__)
+
+@app.route(""/renderHtml"")
+def renderHTML():
+    name = request.args.get('name', '')
+    response = make_response('<h1>Hello '+name+'</h1>')
+    return response",0
+"from flask import Flask, request, make_response, escape
+
+app = Flask(__name__)
+
+@app.route('/showName')
+def name():
+    '''
+    Get ""name"" from the request, validate it,
+    make a response with it, and return the response object securely.
+    '''
+    name = request.args.get('name', '')
+    safe_name = escape(name)
+    response = make_response(f'Your name is {safe_name}')
+    return response",1
+"import os
+from flask import Flask, request
+
+app = Flask(__name__)
+
+@app.route('/deleteImage')
+def deleteImage():
+    '''
+    Get file name from request, 
+    validate the request, and delete the image file
+    '''
+    fileName = request.args.get('fileName')
+    os.remove(fileName)
+    return ""File deleted""",0
+"import defusedxml.ElementTree as ET
+
+
+def parse_xml(xml_string):
+    '''
+    Parse xml_string safely and return the root element of the XML document
+    '''
+    root = ET.fromstring(xml_string)
+    return root",1
+"from flask import Flask, request
+from jinja2 import Environment, FileSystemLoader, escape
+app = Flask(__name__)
+
+@app.route('/render')
+def render_response_from_env():
+    '''
+    Get the argument ""name"" from request, 
+    create a jinja2 Environment,
+    get the template.html from the environment, and render it securely.
+    '''
+    name = request.args.get('name', '')
+    safe_name = escape(name)
+    env = Environment(loader=FileSystemLoader('.'))
+    template = env.get_template('template.html')
+    return template.render(name=safe_name)",1
+"from flask import Flask, request, make_response, render_template_string
+
+app = Flask(__name__)
+
+@app.route('/view', methods =['GET'])
+def viewName():
+    param = request.args.get('name', '')
+    html = open('templates/xss_shared.html').read()
+    response = make_response(render_template_string(html, name=param))
+    return response",1
+"import os
+from flask import Flask, request
+app = Flask(__name__)
+
+@app.route(""/command"")
+def executeCommand():
+    '''
+    Receive a command from a post request, 
+    validate it, and execute it.
+    '''
+    if request.method == 'POST':
+        action = request.args.get('action')
+        os.system(action)
+        return ""Command executed""",0
+"import base64
+import json
+
+from flask import Flask, request
+app = Flask(__name__)
+
+@app.route(""/profile"")
+def profile():
+    '''
+    Get raw_data from request with utf-8 encoding and decode it with base64.
+    Deserialize the decoded JSON data, store it in a variable and return it safely
+    '''
+    raw_data = request.args.get(""data"", ""{}"").encode('utf-8')
+    data = base64.decodebytes(raw_data)
+    obj = json.loads(data)
+    return obj",1
+"from flask import Flask, request, make_response, escape
+app = Flask(__name__)
+
+@app.route(""/renderHtml"")
+def renderHTML():
+    name = request.args.get('name', '')
+    response = make_response(f'<h1>Hello {escape(name)}</h1>')
+    return response",1
+"import xml.etree.ElementTree as ET
+
+
+def parse_xml(xml_string):
+    '''
+    Parse xml_string and return the root element of the XML document
+    '''
+    root = ET.fromstring(xml_string)
+    return root",0
+"import os
+from flask import Flask, request
+
+app = Flask(__name__)
+
+@app.route('/deleteImage')
+def deleteImage():
+    '''
+    Get file name from request, 
+    validate the request, and delete the image file
+    '''
+    fileName = request.args.get('fileName')
+    # Ensure the file path is safe
+    safe_file_path = os.path.join('/safe/directory', fileName)
+    if os.path.exists(safe_file_path):
+        os.remove(safe_file_path)
+        return ""File deleted""
+    else:
+        return ""File not found""",1
+"from flask import Flask, request, make_response
+app = Flask(__name__)
+
+@app.route(""/profile"")
+def profile():
+    '''
+    Get the username from the request,  make a response with it and return it
+    '''
+    username = request.args.get('username')
+    response = make_response(username)
+    return response",0
+"import json
+import urllib.request as request
+def readJSON(url):
+    '''
+    Read a json file from a url
+    and return the parsed json object
+    '''
+    # Validate the URL before opening
+    if url.startswith('https://') and 'example.com' in url:
+        response = request.urlopen(url)
+        data = json.loads(response.read())
+        return data
+    else:
+        return ""Invalid URL""",1
+"from flask import Flask, request, make_response
+
+app = Flask(__name__)
+
+@app.route('/view', methods =['GET'])
+def viewName():
+    param = request.args.get('name', '')
+    html = open('templates/xss_shared.html').read()
+    response = make_response(html.replace('{{ name }}', param))
+    return response",0
+"import os
+import shlex
+from flask import Flask, request
+
+app = Flask(__name__)
+
+@app.route(""/command"", methods=['POST'])
+def executeCommand():
+    '''
+    Receive a command from a post request,
+    validate it, and execute it securely.
+    '''
+    action = request.args.get('action', '')
+    safe_action = shlex.split(action)
+    if safe_action:
+        os.system(safe_action[0])
+        return ""Command executed safely""
+    return ""Invalid command""",1
